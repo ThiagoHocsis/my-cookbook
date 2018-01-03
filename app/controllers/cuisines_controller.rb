@@ -11,8 +11,13 @@ end
 
   def create
     name = params[:cuisine][:name]
-    @cuisine = Cuisine.create(name: name)
-    @cuisine.save
+    cui = Cuisine.create(name: name)
+    if cui.save
+      redirect_to cuisine_path(cui.id)
+    else
+        render '_error_messages'
+    end
+
   end
 
 
