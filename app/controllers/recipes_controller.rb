@@ -21,11 +21,13 @@ class RecipesController < ApplicationController
     rec  = Recipe.create(title: title, recipe_type: type, cuisine_id: cuisine,
            difficulty: difficulty, cook_time: cook_time, ingredients: ingredients,
            method: method)
-    rec.save
-    @recipe = Recipe.find_by title:title
-    redirect_to recipe_path(rec.id)
+    if rec.save
+      @recipe = Recipe.find_by title:title
+      redirect_to recipe_path(rec.id)
+    else
+      render '_error_messages'
     end
-
+  end
   def options_for_select
      @cuisine_options_for_select = Cuisine.all.collect {|c| [ c.name, c.id ] }
 end
