@@ -7,24 +7,28 @@ class RecipesController < ApplicationController
 
   def new
     @recipe = Recipe.new
+    options_for_select
   end
 
   def create
     title = params[:recipe][:title]
-    recipe_type = params[:recipe][:recipe_type]
+    type = params[:recipe][:recipe_type]
     cuisine = params[:recipe][:cuisine]
     difficulty = params[:recipe][:difficulty]
     cook_time = params[:recipe][:cook_time]
     ingredients = params[:recipe][:ingredients]
     method = params[:recipe][:method]
-
-    rec = Recipe.new(title: title, recipe_type: recipe_type, cuisine: cuisine,
-    difficulty: difficulty, cook_time: cook_time, ingredients: ingredients, method: method)
+    rec  = Recipe.create(title: title, recipe_type: type, cuisine_id: cuisine,
+           difficulty: difficulty, cook_time: cook_time, ingredients: ingredients,
+           method: method)
     rec.save
-
+    @recipe = Recipe.find_by title:title
     redirect_to recipe_path(rec.id)
+    end
 
-  end
+  def options_for_select
+     @cuisine_options_for_select = Cuisine.all.collect {|c| [ c.name, c.id ] }
+end
 
 end
 

@@ -10,8 +10,9 @@
   </div>
 
   <div>
+
     <%=f.label :cuisine, 'Cozinha' %>
-    <%=f.text_field :cuisine %>
+    <%=f.select(:cuisine, @cuisine_options_for_select) %>
   </div>
 
   <div>
