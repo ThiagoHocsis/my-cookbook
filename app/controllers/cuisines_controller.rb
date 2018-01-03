@@ -1,14 +1,13 @@
-class CuisineController < ApplicationController
+class CuisinesController < ApplicationController
 
   def new
-    @cuisine = Cuisine.new
-    
-  end
+   @cuisines = Cuisine.new
+ end
 
-  def show
-    @cuisine = Cuisine.find params[:id]
-    @recipes = Recipe.where(cuisine_id: params[:id])
-  end
+ def show
+   @cuisines = Cuisine.find params[:id]
+   @recipes = Recipe.where(cuisine_id: params[:id])
+end
 
   def create
     name = params[:cuisine][:name]

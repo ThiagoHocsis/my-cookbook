@@ -1,0 +1,15 @@
+<h1><%= @cuisines.name%></h1>
+
+<% if @recipes.size != 0 %>
+  <% @recipes.each do |recipe| %>
+    <h1><%= recipe.title%></h1>
+    <ul>
+      <li><%= recipe.recipe_type%></li>
+      <li><%= recipe.cuisine.name%></li>
+      <li><%= recipe.difficulty%></li>
+      <li><%= recipe.cook_time%> minutos</li>
+    </ul>
+  <% end %>
+<% else %>
+ <p>Nenhuma receita encontrada para este tipo de cozinha</p>
+<% end %>
