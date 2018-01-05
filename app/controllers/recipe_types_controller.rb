@@ -12,8 +12,7 @@ class RecipeTypesController < ApplicationController
     if @recipe_type.save
       redirect_to @recipe_type
     else
-      flash[:error] = 'Você deve informar o nome do tipo de receita'
-      render :new
+      render '_error_messages'
     end
   end
 end

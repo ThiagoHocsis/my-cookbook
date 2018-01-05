@@ -7,6 +7,10 @@
 <h1><%= link_to(cuisine.name, cuisine_path(cuisine.id)) %></h1>
 <% end %>
 
+<% @recipe_types.each do |recipe_type| %>
+<h1><%= link_to(recipe_type.name, recipe_type_path(recipe_type.id)) %></h1>
+<% end %>
+
 
 <% @recipes.each do |recipe| %>
       <h1><%= link_to recipe.title, recipe %></h1>

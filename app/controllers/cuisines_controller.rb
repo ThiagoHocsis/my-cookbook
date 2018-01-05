@@ -10,16 +10,16 @@ class CuisinesController < ApplicationController
 end
 
   def create
-    name = params[:cuisine][:name]
-    cui = Cuisine.create(name: name)
-    if cui.save
-      redirect_to cuisine_path(cui.id)
+    @cuisine = Cuisine.new(params.require(:cuisine).permit(:name))
+    if @cuisine.save
+      redirect_to @cuisine
     else
-        render '_error_messages'
+      render '_error_messages'
     end
 
   end
-
-
-
 end
+
+# @recipe_type = RecipeType.new(params.require(:recipe_type).permit(:name))
+# if @recipe_type.save
+#   redirect_to @recipe_type
