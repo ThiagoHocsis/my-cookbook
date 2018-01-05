@@ -5,14 +5,14 @@
   </div>
 
   <div>
-    <%=f.label :recipe_type, 'Tipo da Receita' %>
-    <%=f.select(:recipe_type, @recipe_type_options_for_select) %>
+    <%= f.label :recipe_type_id, 'Tipo da Receita' %>
+    <%= f.collection_select :recipe_type_id, @recipe_types, :id, :name  %>
   </div>
 
   <div>
 
-    <%=f.label :cuisine, 'Cozinha' %>
-    <%=f.select(:cuisine, @cuisine_options_for_select) %>
+    <%= f.label :cuisine_id, 'Cozinha' %>
+<%= f.collection_select :cuisine_id, @cuisines, :id, :name  %>
   </div>
 
   <div>
