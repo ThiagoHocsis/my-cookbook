@@ -40,6 +40,7 @@ group :development, :test do
   gem 'rspec-rails', '~> 3.6'
   #Acceptance test framework for web applications http://teamcapybara.github.io/capybara/
   gem 'capybara'
+  gem 'factory_bot_rails'
 
 end
 
