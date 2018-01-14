@@ -1,6 +1,13 @@
 <h1> CookBook </h1>
 
-<p> Bem-vindo ao maior livro de receitas online</p>
+<p><%= I18n.translate('site_description') %></p>
+
+
+<%= form_tag("recipes/search", method: "get") do %>
+  <%= text_field_tag(:q, nil, placeholder: "Busca") %>
+  <%= submit_tag("Buscar") %>
+<% end %>
+
 
 
 <% @cuisines.each do |cuisine| %>

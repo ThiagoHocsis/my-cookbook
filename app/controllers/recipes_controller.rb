@@ -1,14 +1,8 @@
 class RecipesController < ApplicationController
 
-  before_action :set_recipe, only: [:show, :edit, :update]
-  before_action :set_cuisines, only: [:new, :edit]
-  before_action :set_recipe_types, only: [:new, :edit]
-
-
-#######################################
-  #Criar o search com where e like
-
-#######################################
+  before_action :set_recipe, only: [:show, :edit, :update,]
+  before_action :set_cuisines, only: [:new, :edit, :update]
+  before_action :set_recipe_types, only: [:new, :edit, :update]
 
   def show
   end
@@ -31,6 +25,11 @@ class RecipesController < ApplicationController
     end
   end
 
+  def search
+    @search = params[:q]
+    @recipes = Recipe.where("title LIKE ? OR ingredients LIKE ?","%#{@search}%", "%#{@search}%")
+  end
+
 
   def edit
   end
@@ -39,10 +38,8 @@ class RecipesController < ApplicationController
     if @recipe.update(recipe_params)
       redirect_to @recipe
     else
-      set_cuisines
-      set_recipe_types
       flash.now[:error] = 'Você deve informar todos os dados da receita'
-      render :new
+      render :edit
     end
   end
 
