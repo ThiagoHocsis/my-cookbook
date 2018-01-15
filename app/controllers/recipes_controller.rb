@@ -1,5 +1,5 @@
 class RecipesController < ApplicationController
-
+  # before_action :authenticate_user!
   before_action :set_recipe, only: [:show, :edit, :update,]
   before_action :set_cuisines, only: [:new, :edit, :update]
   before_action :set_recipe_types, only: [:new, :edit, :update]
