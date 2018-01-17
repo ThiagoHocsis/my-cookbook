@@ -1,5 +1,5 @@
 class RecipesController < ApplicationController
-  # before_action :authenticate_user!
+  before_action :authenticate_user!, only:[:new, :edit, :update]
   before_action :set_recipe, only: [:show, :edit, :update,]
   before_action :set_cuisines, only: [:new, :edit, :update]
   before_action :set_recipe_types, only: [:new, :edit, :update]
@@ -14,6 +14,7 @@ class RecipesController < ApplicationController
 
   def create
     @recipe = Recipe.new(recipe_params)
+    @recipe.user = current_user
     if @recipe.save
       redirect_to @recipe
     else
@@ -48,7 +49,7 @@ class RecipesController < ApplicationController
   def recipe_params
     params.require(:recipe).permit(:title,
                                    :recipe_type_id, :cuisine_id, :difficulty,
-                                   :cook_time, :ingredients, :method)
+                                   :cook_time, :ingredients, :method, :user_id)
   end
 
 

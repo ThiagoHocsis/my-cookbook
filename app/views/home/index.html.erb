@@ -5,7 +5,7 @@
   <%="Bem-vindo #{current_user.email}"%>
   <%= link_to 'Sair', destroy_user_session_path, method: :delete %>
 <% else %>
-  <h1><%= link_to 'Entrar', new_user_session_path %></h1>
+  <%= link_to 'Entrar', new_user_session_path %>
 <%end%>
 <%= form_tag("recipes/search", method: "get") do %>
   <%= text_field_tag(:q, nil, placeholder: "Busca") %>

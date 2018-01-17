@@ -3,6 +3,7 @@ FactoryBot.define do
     title 'Bolo de cenoura'
     association :cuisine
     association :recipe_type
+    association :user
     difficulty 'Fácil'
     cook_time 60
     ingredients 'Farinha, açucar e ovo'
