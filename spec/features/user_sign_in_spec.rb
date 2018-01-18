@@ -15,7 +15,7 @@ feature 'User sign in' do
      click_on 'Log in'
 
    #expect
-   expect(page).to have_content("Bem-vindo #{user.email}")
+   expect(page).to have_css('h3', text:"Bem vindo #{user.email}")
    expect(page).not_to have_link('Entrar')
   end
 

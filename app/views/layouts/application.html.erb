@@ -9,10 +9,23 @@
   </head>
 
   <body>
-    <body>
-   <p class="notice"><%= notice %></p>
-   <p class="alert"><%= alert %></p>
-   <%= yield %>
-</body>
+    <main>
+      <%if user_signed_in?%>
+        <h3><%= "Bem vindo #{current_user.email}"%></h3></br>
+        <%= link_to 'Sair', destroy_user_session_path, method: :delete%>
+      <%else%>
+      <%=link_to 'Entrar', new_user_session_path%>
+      <%end%>
+      <%if flash[:notice]%>
+        <%=flash[:notice]%>
+      <%end%>
+      <%if flash[:alert]%>
+        <%=flash[:alert]%>
+      <%end%>
+      <%= yield %>
+    </main>
+    <aside>
+      <%= yield :aside %>
+    </aside>
   </body>
 </html>

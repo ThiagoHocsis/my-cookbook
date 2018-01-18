@@ -9,5 +9,12 @@
 <h3>Como Preparar</h3>
 <p><%=@recipe.method%></p>
 
+<% if user_signed_in?%>
+  <% if current_user.favorite?(@recipe)%>
+    <%=link_to 'Remover receita como favorita', unfavorite_recipe_path, method: :delete%>
+  <% else %>
+    <%=link_to 'Adicionar receita como favorita', favorite_recipe_path, method: :post %>
+  <% end %>
+<% end %>
 <%=link_to('Voltar', root_path)%>
 <%=link_to 'Editar', edit_recipe_path(@recipe)%>

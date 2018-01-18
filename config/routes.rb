@@ -6,6 +6,10 @@ Rails.application.routes.draw do
 
     get "search", on: :collection
 
+    member do
+      post 'favorite'
+      delete 'favorite', to: 'recipes#unfavorite', as: 'unfavorite'
+    end
   end
 
   resources :cuisines, only: [:show, :new, :create]

@@ -1,12 +1,6 @@
 <h1> CookBook </h1>
 
 <p><%= I18n.translate('site_description') %></p>
-<% if user_signed_in? %>
-  <%="Bem-vindo #{current_user.email}"%>
-  <%= link_to 'Sair', destroy_user_session_path, method: :delete %>
-<% else %>
-  <%= link_to 'Entrar', new_user_session_path %>
-<%end%>
 <%= form_tag("recipes/search", method: "get") do %>
   <%= text_field_tag(:q, nil, placeholder: "Busca") %>
   <%= submit_tag("Buscar") %>

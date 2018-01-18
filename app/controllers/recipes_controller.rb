@@ -1,6 +1,6 @@
 class RecipesController < ApplicationController
   before_action :authenticate_user!, only:[:new, :edit, :update]
-  before_action :set_recipe, only: [:show, :edit, :update,]
+  before_action :set_recipe, only: [:show, :edit, :update, :favorite, :unfavorite]
   before_action :set_cuisines, only: [:new, :edit, :update]
   before_action :set_recipe_types, only: [:new, :edit, :update]
 
@@ -9,7 +9,6 @@ class RecipesController < ApplicationController
 
   def new
     @recipe = Recipe.new
-
   end
 
   def create
@@ -24,6 +23,19 @@ class RecipesController < ApplicationController
       render :new
 
     end
+  end
+
+  def favorite
+    @favorite = Favorite.create(user:current_user, recipe: @recipe)
+    redirect_to @recipe
+    flash[:notice] = "Receita adicionada como favorita"
+  end
+
+  def unfavorite
+    @favorite = Favorite.find_by(user:current_user, recipe: @recipe)
+    @favorite.destroy
+    redirect_to @recipe
+    flash[:notice] = "Receita removida como favorita"
   end
 
   def search
@@ -64,5 +76,4 @@ class RecipesController < ApplicationController
   def set_recipe_types
     @recipe_types = RecipeType.all
   end
-
 end
