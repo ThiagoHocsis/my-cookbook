@@ -7,18 +7,23 @@
 <% end %>
 
 
-
+<h1> Cozinhas </h1>
 <% @cuisines.each do |cuisine| %>
-<h1><%= link_to(cuisine.name, cuisine_path(cuisine.id)) %></h1>
+<ul>
+  <li><b><%= link_to(cuisine.name, cuisine_path(cuisine.id)) %></b></li>
+</ul>
 <% end %>
 
+<h1> Tipos de receita </h1>
 <% @recipe_types.each do |recipe_type| %>
-<h1><%= link_to(recipe_type.name, recipe_type_path(recipe_type.id)) %></h1>
+<ul>
+  <li><b><%= link_to(recipe_type.name, recipe_type_path(recipe_type.id)) %></b></li>
+</ul>
 <% end %>
 
-
+<h1> Receitas </h1>
 <% @recipes.each do |recipe| %>
-      <h1><%= link_to recipe.title, recipe %></h1>
+      <h2><%= link_to recipe.title, recipe %></h2>
       <ul>
         <li><%= recipe.recipe_type.name %></li>
         <li><%= recipe.cuisine.name %></li>
@@ -26,5 +31,5 @@
         <li><%= recipe.cook_time %> minutos</li>
       </ul>
 <% end %>
-
+<%=link_to('Ver todas receitas', recipes_path)%>
 <%=link_to('Enviar uma receita', new_recipe_path)%>

@@ -2,7 +2,7 @@ Rails.application.routes.draw do
   devise_for :users
   root to: 'home#index'
 
-  resources :recipes, only: [:show, :new, :create, :edit, :update] do
+  resources :recipes, only: [:show, :new, :create, :edit, :update, :index, :destroy] do
 
     get "search", on: :collection
 

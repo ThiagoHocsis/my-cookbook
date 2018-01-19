@@ -12,4 +12,7 @@ class User < ApplicationRecord
     self.favorite_recipes.include?(recipe)
   end
 
+  def is_owner?(recipe)
+    self.email == recipe.user.email
+  end
 end

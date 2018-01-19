@@ -20,11 +20,9 @@ feature 'User update recipe' do
 
     # simula a ação do usuário
     visit root_path
+    login_as (user)
     click_on 'Bolodecenoura'
     click_on 'Editar'
-    fill_in 'Email', with: user.email
-    fill_in 'Senha', with: user.password
-    click_on 'Log in'
     fill_in 'Título', with: 'Bolo de cenoura'
     select 'Brasileira', from: 'Cozinha'
     select 'Sobremesa', from: 'Tipo da Receita'
@@ -47,13 +45,13 @@ feature 'User update recipe' do
 
   scenario 'and all fields must be filled' do
     #cria os dados necessários, nesse caso não vamos criar dados no banco
+    user = create(:user, email:'thiago@gmail.com')
     arabian_cuisine = Cuisine.create(name: 'Arabe')
     brazilian_cuisine = Cuisine.create(name: 'Brasileira')
 
     appetizer_type = RecipeType.create(name: 'Entrada')
     main_type = RecipeType.create(name: 'Prato Principal')
     dessert_type = RecipeType.create(name: 'Sobremesa')
-    user = create(:user)
     recipe = Recipe.create(title: 'Bolodecenoura', recipe_type: main_type,
                           cuisine: arabian_cuisine, difficulty: 'Médio',
                           cook_time: 50,
@@ -63,11 +61,9 @@ feature 'User update recipe' do
 
     # simula a ação do usuário
     visit root_path
+    login_as(user)
     click_on 'Bolodecenoura'
     click_on 'Editar'
-    fill_in 'Email', with: user.email
-    fill_in 'Senha', with: user.password
-    click_on 'Log in'
     fill_in 'Título', with: ''
     fill_in 'Dificuldade', with: ''
     fill_in 'Tempo de Preparo', with: ''
@@ -78,4 +74,56 @@ feature 'User update recipe' do
 
     expect(page).to have_content('Você deve informar todos os dados da receita')
   end
+
+  scenario 'and not is owner of recipe' do
+
+    #Setup
+    user = create(:user, email: 'thiago@gmail.com')
+    another_user = create(:user, email: 'nelson@gmail.com')
+    recipe_type = create(:recipe_type, name:'Jantar')
+    recipe = create(:recipe, title:'Lasanha', user:user, recipe_type:recipe_type)
+
+    #Navigation
+    visit root_path
+    login_as(another_user)
+    click_on 'Lasanha'
+
+    #Expect
+    expect(page).not_to have_link('Editar')
+  end
+
+  scenario 'and not is owner of recipe' do
+
+    #Setup
+    user = create(:user, email: 'thiago@gmail.com')
+    another_user = create(:user, email: 'nelson@gmail.com')
+    recipe_type = create(:recipe_type, name:'Jantar')
+    recipe = create(:recipe, title:'Lasanha', user:user, recipe_type:recipe_type)
+
+    #Navigation
+    visit root_path
+    login_as(another_user)
+    click_on 'Lasanha'
+
+    #Expect
+    expect(page).not_to have_link('Editar')
+  end
+
+  scenario 'but is not authenticated' do
+
+    #Setup
+    user = create(:user, email: 'thiago@gmail.com')
+    another_user = create(:user, email: 'nelson@gmail.com')
+    recipe_type = create(:recipe_type, name:'Jantar')
+    recipe = create(:recipe, title:'Lasanha', user:user, recipe_type:recipe_type)
+
+    #Navigation
+    visit root_path
+    click_on 'Lasanha'
+
+    #Expect
+    expect(page).not_to have_link('Editar')
+  end
+
+
 end

@@ -1,10 +1,21 @@
 class RecipesController < ApplicationController
   before_action :authenticate_user!, only:[:new, :edit, :update]
-  before_action :set_recipe, only: [:show, :edit, :update, :favorite, :unfavorite]
+  before_action :set_recipe, only: [:show, :edit, :update, :favorite, :unfavorite, :destroy]
   before_action :set_cuisines, only: [:new, :edit, :update]
   before_action :set_recipe_types, only: [:new, :edit, :update]
+  before_action :owner, only:[:edit]
 
   def show
+  end
+
+  def destroy
+    @recipe.destroy
+    redirect_to root_path
+    flash[:notice] = "Receita removida com sucesso"
+  end
+
+  def index
+    @recipes = Recipe.all
   end
 
   def new
@@ -76,4 +87,12 @@ class RecipesController < ApplicationController
   def set_recipe_types
     @recipe_types = RecipeType.all
   end
+
+  def owner
+   @recipe = Recipe.find(params[:id])
+   unless current_user.is_owner?(@recipe)
+     redirect_to root_path
+   end
+ end
+
 end

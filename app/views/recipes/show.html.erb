@@ -1,20 +1,23 @@
 <h1><%=@recipe.title%></h1>
+
 <h3>Detalhes</h3>
+
+<b>Tipo da Receita:</b>
 <p><%=@recipe.recipe_type.name%></p>
+
+<b>Cozinha:</b>
 <p><%=@recipe.cuisine.name%></p>
+
+<b>Dificuldade:</b>
 <p><%=@recipe.difficulty%></p>
+
+<b>Tempo de preparo:</b>
 <p><%=@recipe.cook_time%> minutos</p>
+
 <h3>Ingredientes</h3>
 <p><%=@recipe.ingredients%></p>
+
 <h3>Como Preparar</h3>
 <p><%=@recipe.method%></p>
 
-<% if user_signed_in?%>
-  <% if current_user.favorite?(@recipe)%>
-    <%=link_to 'Remover receita como favorita', unfavorite_recipe_path, method: :delete%>
-  <% else %>
-    <%=link_to 'Adicionar receita como favorita', favorite_recipe_path, method: :post %>
-  <% end %>
-<% end %>
-<%=link_to('Voltar', root_path)%>
-<%=link_to 'Editar', edit_recipe_path(@recipe)%>
+<%= render 'options' %>
