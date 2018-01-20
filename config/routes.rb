@@ -9,6 +9,7 @@ Rails.application.routes.draw do
     member do
       post 'favorite'
       delete 'favorite', to: 'recipes#unfavorite', as: 'unfavorite'
+      post 'share'
     end
   end
 

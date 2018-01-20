@@ -1,6 +1,6 @@
 class RecipesController < ApplicationController
   before_action :authenticate_user!, only:[:new, :edit, :update]
-  before_action :set_recipe, only: [:show, :edit, :update, :favorite, :unfavorite, :destroy]
+  before_action :set_recipe, only: [:show, :edit, :update, :favorite, :unfavorite, :destroy, :share]
   before_action :set_cuisines, only: [:new, :edit, :update]
   before_action :set_recipe_types, only: [:new, :edit, :update]
   before_action :owner, only:[:edit]
@@ -65,6 +65,14 @@ class RecipesController < ApplicationController
       flash.now[:error] = 'Você deve informar todos os dados da receita'
       render :edit
     end
+  end
+
+  def share
+    email = params[:email]
+    message = params[:message]
+    RecipesMailer.share(email, message, @recipe.id).deliver_now
+    flash[:notice] = "Receita enviada para #{email}"
+    redirect_to @recipe
   end
 
   private
