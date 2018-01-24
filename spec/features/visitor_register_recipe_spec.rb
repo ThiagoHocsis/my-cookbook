@@ -56,4 +56,52 @@ feature 'Visitor register recipe' do
 
     expect(page).to have_content('Você deve informar todos os dados da receita')
   end
+
+  scenario 'and register recipe with image' do
+    #Setup
+    user = create(:user, email:'thiago@gmail.com')
+    recipe_type = create(:recipe_type, name:'Sobremesa')
+    recipe = create(:recipe, title:'Bolo de Cenoura', user:user, recipe_type:recipe_type)
+
+    #Navigation
+    visit root_path
+    login_as (user)
+    click_on 'Enviar uma receita'
+    fill_in 'Título', with: 'Bolo de Cenoura'
+    select 'Brasileira', from: 'Cozinha'
+    select 'Sobremesa', from: 'Tipo da Receita'
+    fill_in 'Dificuldade', with: 'Fácil'
+    fill_in 'Tempo de Preparo', with: '45'
+    fill_in 'Ingredientes', with: 'Farinha, ovo e cenoura'
+    fill_in 'Como Preparar', with: 'Misturar tudo e coloque no forno.'
+    page.attach_file('Imagem da Receita', Rails.root + 'spec/support/fixtures/bolo_de_cenoura.jpg')
+    click_on 'Enviar'
+
+    #Expect
+    expect(page).to have_css("img[src*='bolo_de_cenoura.jpg']")
+  end
+
+  scenario 'and try register recipe with invalid image' do
+    #Setup
+    user = create(:user, email:'thiago@gmail.com')
+    recipe_type = create(:recipe_type, name:'Sobremesa')
+    recipe = create(:recipe, title:'Bolo de Cenoura', user:user, recipe_type:recipe_type)
+
+    #Navigation
+    visit root_path
+    login_as (user)
+    click_on 'Enviar uma receita'
+    fill_in 'Título', with: 'Bolo de Cenoura'
+    select 'Brasileira', from: 'Cozinha'
+    select 'Sobremesa', from: 'Tipo da Receita'
+    fill_in 'Dificuldade', with: 'Fácil'
+    fill_in 'Tempo de Preparo', with: '45'
+    fill_in 'Ingredientes', with: 'Farinha, ovo e cenoura'
+    fill_in 'Como Preparar', with: 'Misturar tudo e coloque no forno.'
+    page.attach_file('Imagem da Receita', Rails.root + 'spec/support/fixtures/bolo_de_cenoura.pdf')
+    click_on 'Enviar'
+
+    #Expect
+    expect(page).to have_content("Você deve informar todos os dados da receita")
+  end
 end

@@ -20,5 +20,8 @@
 <h3>Como Preparar</h3>
 <p><%=@recipe.method%></p>
 
+<h3>Imagem da Receita</h3>
+<%= image_tag @recipe.image.url(:medium) %>
+
 <%= render 'options' %>
-<%= render 'send_form' %>
+<%= render 'share_form' %>

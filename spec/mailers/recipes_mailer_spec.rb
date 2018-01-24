@@ -14,7 +14,7 @@ RSpec.describe RecipesMailer do
       expect(mail.to).to include 'teste@gmail.com'
       expect(mail.subject).to eq 'Foi compartilhada uma receita com você'
       expect(mail.from).to include 'no-reply@cookbook.com'
-      expect(mail.body).to include 'Olha essa receita'
+      expect(mail.body).to include'Olha essa receita'
       expect(mail.body).to include recipe_url(recipe)
 
     end
