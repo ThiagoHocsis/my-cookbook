@@ -40,4 +40,32 @@ feature 'user favorite recipe' do
     expect(page).not_to have_link('Remover receita como favorita')
 
   end
+  scenario 'and see most favorited recipes' do
+    user = create(:user)
+    user_two = create(:user, email: 'user_two@gmail.com')
+    user_three = create(:user, email: 'user_three@gmail.com')
+    recipe_type = create(:recipe_type, name: 'Sobremesa')
+    recipe = create(:recipe, title:'Bolo de banana', user: user, recipe_type: recipe_type)
+    recipe_two = create(:recipe, title:'Bolo de Cenoura', user: user, recipe_type: recipe_type)
+
+    login_as(user)
+    visit root_path
+    click_on 'Bolo de banana',match: :first
+    click_on 'Adicionar receita como favorita'
+    click_on 'Sair'
+    login_as(user_two)
+    visit root_path
+    click_on 'Bolo de banana',match: :first
+    click_on 'Adicionar receita como favorita'
+    click_on 'Sair'
+    login_as(user_three)
+    visit root_path
+    click_on 'Bolo de banana',match: :first
+    click_on 'Adicionar receita como favorita'
+    click_on 'Sair'
+
+    expect(page).to have_content(recipe.title)
+
+  end
+
 end

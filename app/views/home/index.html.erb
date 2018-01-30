@@ -31,5 +31,10 @@
         <li><%= recipe.cook_time %> minutos</li>
       </ul>
 <% end %>
+<h1>Receitas mais favoritadas</h1>
+<% @favorites.each do |recipe| %>
+    <%= render recipe %>
+<% end %>
+
 <%=link_to('Ver todas receitas', recipes_path)%>
 <%=link_to('Enviar uma receita', new_recipe_path)%>

@@ -21,7 +21,7 @@
 <p><%=@recipe.method%></p>
 
 <h3>Imagem da Receita</h3>
-<%= image_tag @recipe.image.url(:medium) %>
+<img><%= image_tag @recipe.image.url(:medium) %><img>
 
 <%= render 'options' %>
 <%= render 'share_form' %>

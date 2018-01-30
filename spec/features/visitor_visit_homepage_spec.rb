@@ -113,5 +113,4 @@ feature 'Visitor visit homepage' do
     expect(page).not_to have_link('Ver todas receitas')
 
   end
-
 end
