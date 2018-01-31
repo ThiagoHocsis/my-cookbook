@@ -35,7 +35,7 @@ gem 'jbuilder', '~> 2.5'
 
 # Flexible authentication solution for Rails with Warden.
 gem 'devise'
-#Easy file attachment management for ActiveRecord 
+#Easy file attachment management for ActiveRecord
 gem "paperclip", "~> 5.0.0"
 
 group :development, :test do
@@ -46,6 +46,8 @@ group :development, :test do
   #Acceptance test framework for web applications http://teamcapybara.github.io/capybara/
   gem 'capybara'
   gem 'factory_bot_rails'
+  #A Ruby static code analyzer, based on the community Ruby style guide
+  gem 'rubocop', '~> 0.52.1', require: false
 
 end
 
