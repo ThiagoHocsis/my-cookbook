@@ -1,40 +1,36 @@
-<h1> CookBook </h1>
+<!-- Main Content -->
+<div class="main-content">
 
-<p><%= I18n.translate('site_description') %></p>
-<%= form_tag("recipes/search", method: "get") do %>
-  <%= text_field_tag(:q, nil, placeholder: "Busca") %>
-  <%= submit_tag("Buscar") %>
-<% end %>
+  <%= render partial: '/partials/cuisine_and_recipe_type'  %>
 
-
-<h1> Cozinhas </h1>
-<% @cuisines.each do |cuisine| %>
-<ul>
-  <li><b><%= link_to(cuisine.name, cuisine_path(cuisine.id)) %></b></li>
-</ul>
-<% end %>
-
-<h1> Tipos de receita </h1>
-<% @recipe_types.each do |recipe_type| %>
-<ul>
-  <li><b><%= link_to(recipe_type.name, recipe_type_path(recipe_type.id)) %></b></li>
-</ul>
-<% end %>
-
-<h1> Receitas </h1>
-<% @recipes.each do |recipe| %>
-      <h2><%= link_to recipe.title, recipe %></h2>
-      <ul>
-        <li><%= recipe.recipe_type.name %></li>
-        <li><%= recipe.cuisine.name %></li>
-        <li><%= recipe.difficulty %></li>
-        <li><%= recipe.cook_time %> minutos</li>
-      </ul>
-<% end %>
-<h1>Receitas mais favoritadas</h1>
-<% @favorites.each do |recipe| %>
-    <%= render recipe %>
-<% end %>
-
-<%=link_to('Ver todas receitas', recipes_path)%>
-<%=link_to('Enviar uma receita', new_recipe_path)%>
+  <h1>Receitas mais favoritadas</h1>
+  <% @favorites.each do |recipe| %>
+      <%= render recipe %>
+  <% end %>
+  <div class="dishes padd">
+      <div class="container">
+        <!-- Default Heading -->
+        <div class="default-heading">
+          <!-- Crown image -->
+          <img class="img-responsive" src="/img/crown.png" alt="" />
+          <!-- Heading -->
+          <h2>Últimas Receitas</h2>
+          <!-- Paragraph -->
+          <p>Essas receitas acabaram de entrar no CookBook</p>
+          <!-- Border -->
+          <div class="border"></div>
+        </div>
+        <div class="row">
+          <% @recipes.each do |recipe| %>
+          <%= render recipe %>
+          <% end %>
+        </div>
+        <div class="text-center">
+                <%= link_to 'Todas as Receitas', recipes_path, class: "dish-all btn btn-primary btn-lg" %>
+        </div>
+        <div class="text-center">
+                <%= link_to 'Enviar uma receita', new_recipe_path, class: "dish-all btn btn-primary btn-lg" %>
+        </div>
+      </div>
+    </div>
+</div>

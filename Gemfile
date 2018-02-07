@@ -37,12 +37,13 @@ gem 'jbuilder', '~> 2.5'
 gem 'devise'
 #Easy file attachment management for ActiveRecord
 gem "paperclip", "~> 5.0.0"
+gem 'bootstrap-sass', '~> 3.3.7'
 
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console
   gem 'byebug', platforms: [:mri, :mingw, :x64_mingw]
   #rspec-rails is a testing framework for Rails 3.x, 4.x and 5.0.
-  gem 'rspec-rails', '~> 3.6'
+  gem 'rspec-rails', '~> 3.7'
   #Acceptance test framework for web applications http://teamcapybara.github.io/capybara/
   gem 'capybara'
   gem 'factory_bot_rails'
