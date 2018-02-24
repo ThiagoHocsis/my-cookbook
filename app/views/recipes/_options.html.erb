@@ -4,7 +4,7 @@
   <% else %>
     <%=link_to 'Adicionar receita como favorita', favorite_recipe_path, method: :post %>
   <% end %>
-  <% if current_user.is_owner?(@recipe) %>
+  <% if current_user.owner?(@recipe) %>
     <%=link_to 'Editar', edit_recipe_path(@recipe)%>
     <%=link_to('Remover receita', recipe_path, method: :delete)%>
   <% end %>

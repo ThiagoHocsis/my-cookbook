@@ -1,5 +1,5 @@
 FactoryBot.define do
   factory :recipe_type do
-    name "Sobremesa"
+    name 'Sobremesa'
   end
 end

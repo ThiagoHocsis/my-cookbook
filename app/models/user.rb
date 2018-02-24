@@ -6,13 +6,11 @@ class User < ApplicationRecord
   has_many :recipes
   has_many :favorites
   has_many :favorite_recipes, through: :favorites, source: :recipe
-
-
   def favorite?(recipe)
-    self.favorite_recipes.include?(recipe)
+    favorite_recipes.include?(recipe)
   end
 
-  def is_owner?(recipe)
-    self.email == recipe.user.email
+  def owner?(recipe)
+    email == recipe.user.email
   end
 end

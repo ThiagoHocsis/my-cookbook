@@ -1,17 +1,17 @@
 class RecipesController < ApplicationController
-  before_action :authenticate_user!, only:[:new, :edit, :update]
-  before_action :set_recipe, only: [:show, :edit, :update, :favorite, :unfavorite, :destroy, :share]
+  before_action :authenticate_user!, only: [:new, :edit, :update]
+  before_action :set_recipe, only: [:show, :edit, :update, :favorite,
+                                    :unfavorite, :destroy, :share]
   before_action :set_cuisines, only: [:new, :edit, :update]
   before_action :set_recipe_types, only: [:new, :edit, :update]
-  before_action :owner, only:[:edit]
+  before_action :owner, only: [:edit]
 
-  def show
-  end
+  def show; end
 
   def destroy
     @recipe.destroy
     redirect_to root_path
-    flash[:notice] = "Receita removida com sucesso"
+    flash[:notice] = 'Receita removida com sucesso'
   end
 
   def index
@@ -32,31 +32,29 @@ class RecipesController < ApplicationController
       set_recipe_types
       flash.now[:error] = 'Você deve informar todos os dados da receita'
       render :new
-
     end
   end
 
   def favorite
-    @favorite = Favorite.create(user:current_user, recipe: @recipe)
+    @favorite = Favorite.create(user: current_user, recipe: @recipe)
     redirect_to @recipe
-    flash[:notice] = "Receita adicionada como favorita"
+    flash[:notice] = 'Receita adicionada como favorita'
   end
 
   def unfavorite
-    @favorite = Favorite.find_by(user:current_user, recipe: @recipe)
+    @favorite = Favorite.find_by(user: current_user, recipe: @recipe)
     @favorite.destroy
     redirect_to @recipe
-    flash[:notice] = "Receita removida como favorita"
+    flash[:notice] = 'Receita removida como favorita'
   end
 
   def search
     @search = params[:q]
-    @recipes = Recipe.where("title LIKE ? OR ingredients LIKE ?","%#{@search}%", "%#{@search}%")
+    @recipes = Recipe.where('title LIKE ? OR ingredients LIKE ?',
+                            "%#{@search}%", "%#{@search}%")
   end
 
-
-  def edit
-  end
+  def edit; end
 
   def update
     if @recipe.update(recipe_params)
@@ -79,10 +77,11 @@ class RecipesController < ApplicationController
 
   def recipe_params
     params.require(:recipe).permit(:title,
-                                   :recipe_type_id, :cuisine_id, :difficulty,
-                                   :cook_time, :ingredients, :method, :user_id, :image)
+                                   :recipe_type_id,
+                                   :cuisine_id, :difficulty,
+                                   :cook_time, :ingredients, :method,
+                                   :user_id, :image)
   end
-
 
   def set_recipe
     @recipe = Recipe.find(params[:id])
@@ -97,10 +96,7 @@ class RecipesController < ApplicationController
   end
 
   def owner
-   @recipe = Recipe.find(params[:id])
-   unless current_user.is_owner?(@recipe)
-     redirect_to root_path
-   end
- end
-
+    @recipe = Recipe.find(params[:id])
+    redirect_to root_path unless current_user.owner?(@recipe)
+  end
 end
